@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from datetime import timedelta
 
@@ -172,3 +173,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+if 'test' in sys.argv or 'test\_coverage' in sys.argv: #Covers regular testing and django-coverage
+ DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+ DATABASES['default']['NAME'] = ':memory:'
+
